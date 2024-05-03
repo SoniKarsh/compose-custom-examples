@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.technobugsai.composecustomexamples.shapes.Heptagon
+import com.technobugsai.composecustomexamples.lists.DataList
 import com.technobugsai.composecustomexamples.ui.theme.ComposeCustomExamplesTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Heptagon()
+                    Greeting("Android")
                 }
             }
         }
@@ -32,16 +32,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+    DataList()
+//    Text(
+//        text = "Hello $name!",
+//        modifier = modifier
+//    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     ComposeCustomExamplesTheme {
-        Heptagon()
+        Greeting("Android")
     }
 }
