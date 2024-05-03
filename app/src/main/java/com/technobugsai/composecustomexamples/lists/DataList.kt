@@ -29,6 +29,7 @@ fun DataList() {
     LazyRow {
         items(TestData.getList()) { data ->
             DataItem(data = data)
+//            DataItem(data = data)
         }
     }
 }
