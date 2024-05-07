@@ -1,9 +1,9 @@
 package com.technobugsai.composecustomexamples.lists
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +22,7 @@ import com.technobugsai.composecustomexamples.utils.models.DataModel
 
 @Composable
 fun DataList() {
-    LazyRow {
+    LazyRow(modifier = Modifier.fillMaxWidth().wrapContentHeight(align = Alignment.Top)) {
         items(TestData.getList()) { data ->
             DataItem(data = data)
         }
@@ -32,7 +32,9 @@ fun DataList() {
 @Composable
 fun DataItem(data: DataModel) {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(10.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HeptagonWithImage(100f, 100f, 100f, Color.Green, data)

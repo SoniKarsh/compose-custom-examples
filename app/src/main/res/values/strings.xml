@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ComposeCustomExamples</string>
+    <string name="checked_icon">Item selected</string>
 </resources>
