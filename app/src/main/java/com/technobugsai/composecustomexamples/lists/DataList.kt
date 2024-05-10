@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -22,7 +23,12 @@ import com.technobugsai.composecustomexamples.utils.models.DataModel
 
 @Composable
 fun DataList() {
-    LazyRow(modifier = Modifier.fillMaxWidth().wrapContentHeight(align = Alignment.Top)) {
+    LazyRow(
+        state = rememberLazyListState(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(align = Alignment.Top)
+    ) {
         items(TestData.getList()) { data ->
             DataItem(data = data)
         }
