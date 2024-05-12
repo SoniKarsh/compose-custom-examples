@@ -8,3 +8,9 @@ data class DataModel(
     val localPath: Int = R.drawable.ic_launcher_background,
     var isChecked: Boolean = false,
 )
+
+data class CartoonDataModel(
+    val name: String,
+    val color: String,
+    val imgPath: Int
+)
