@@ -1,6 +1,7 @@
 package com.technobugsai.composecustomexamples.utils
 
 import com.technobugsai.composecustomexamples.R
+import com.technobugsai.composecustomexamples.utils.models.CartoonDataModel
 import com.technobugsai.composecustomexamples.utils.models.DataModel
 
 object TestData {
@@ -23,6 +24,35 @@ object TestData {
             DataModel("Product 12", "https://i.ibb.co/Wgh3Xfm/seven.webp", R.drawable.twelve),
             DataModel("Product 13", "https://i.ibb.co/BrFS7BQ/six.webp", R.drawable.thirteen),
             DataModel("Product 14", "https://i.ibb.co/5hs6SS6/ten.webp", R.drawable.fourteen),
+        )
+    }
+
+    fun getCartoonList(): ArrayList<CartoonDataModel> {
+        return arrayListOf(
+            CartoonDataModel(
+                "Orange", "#FFA500", R.drawable.orange_transformed
+            ),
+            CartoonDataModel(
+                "Blue", "#00BFFF", R.drawable.blue_transformed
+            ),
+            CartoonDataModel(
+                "Green", "#32CD32", R.drawable.green_transformed
+            ),
+            CartoonDataModel(
+                "Light Blue", "#87CEEB", R.drawable.light_blue_transformed
+            ),
+            CartoonDataModel(
+                "Purple", "#C8A2C8", R.drawable.purple_transformed
+            ),
+            CartoonDataModel(
+                "Light Blue One", "#40E0D0", R.drawable.light_blue_one_transformed
+            ),
+            CartoonDataModel(
+                "Red", "#b50100", R.drawable.red_transformed
+            ),
+            CartoonDataModel(
+                "Purple One", "#bcacd6", R.drawable.purple_one_transformed
+            )
         )
     }
 

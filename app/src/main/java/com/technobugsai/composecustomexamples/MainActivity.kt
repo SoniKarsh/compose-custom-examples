@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.technobugsai.composecustomexamples.bottomnav.BottomArc
+import com.technobugsai.composecustomexamples.lists.CartoonList
 import com.technobugsai.composecustomexamples.ui.theme.ComposeCustomExamplesTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     BottomArc(Color.Blue)
+    CartoonList()
 //    Text(
 //        text = "Hello $name!",
 //        modifier = modifier
