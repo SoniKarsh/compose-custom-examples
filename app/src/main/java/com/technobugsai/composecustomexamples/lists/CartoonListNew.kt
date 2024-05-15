@@ -104,21 +104,7 @@ fun TempView1Preview() {
 @Preview
 @Composable
 fun TempView1() {
-    Canvas(modifier = Modifier.size(200.dp)) {
-        val radius = size.minDimension / 2
-        val center = Offset(size.width / 2, size.height / 2)
 
-        // Draw the outer circle
-        drawCircle(color = Color.Blue, radius = radius, center = center)
-
-        // Clip the canvas to draw inside the outer circle
-        clipPath(Path().apply {
-//            addCircle(center, radius, Path.Direction.CW)
-        }) {
-            // Draw the inner circle
-            drawCircle(color = Color.Red, radius = radius / 2, center = center)
-        }
-    }
 }
 
 @Preview
