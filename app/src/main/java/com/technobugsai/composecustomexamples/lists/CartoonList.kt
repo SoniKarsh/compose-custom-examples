@@ -1,5 +1,6 @@
 package com.technobugsai.composecustomexamples.lists
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -17,13 +18,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -42,12 +46,9 @@ import com.technobugsai.composecustomexamples.utils.models.CartoonDataModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CartoonList(onClick: (CartoonDataModel) -> Unit) {
+fun CartoonList(onClick: (CartoonDataModel) -> Unit, onPageSwiped: (Int) -> Unit, pagerState: PagerState? = null) {
     val cartoonList = TestData.getCartoonList()
     val listSize = cartoonList.size
-    val pagerState = rememberPagerState(pageCount = {
-        listSize
-    })
 
     // Animation
     var maxDimension by remember {
@@ -60,10 +61,18 @@ fun CartoonList(onClick: (CartoonDataModel) -> Unit) {
         targetValue = if (animationState.isExpanded()) maxDimension else 0f,
         animationSpec = tween(if (animationState.isExpanded()) 2000 else 1000)
     )
-
+    LaunchedEffect(pagerState) {
+        // Collect from the a snapshotFlow reading the currentPage
+        snapshotFlow { pagerState?.targetPage }.collect { page ->
+            // Do something with each page change, for example:
+            // viewModel.sendPageSelectedEvent(page)
+            onPageSwiped.invoke(page ?: 0)
+            Log.d("Page change", "Page changed to $page")
+        }
+    }
     HorizontalPager(
         modifier = Modifier.wrapContentHeight(align = Alignment.Top),
-        state = pagerState
+        state = pagerState!!
     ) {
         CartoonItem(cartoonDataModel = cartoonList[it], onClick)
     }
@@ -99,8 +108,9 @@ fun CartoonItemPreview(cartoonDataModel: CartoonDataModel = TestData.getCartoonL
     CartoonItem(cartoonDataModel, {})
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)
 @Composable
 fun CartoonListPreview() {
-    CartoonList({})
+    CartoonList({},{}, null)
 }

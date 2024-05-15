@@ -22,10 +22,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.ClipOp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,26 +53,35 @@ fun BottomArc(bgColor: Color) {
             // To reach the center point on the x-axis
             val xPos = canvasWidth / 2
             Log.e("Called", "canvasWidth $canvasWidth canvasHeight $canvasHeight formWidth $doubleWidth xPos $xPos")
-            drawArc(
-                Color.Black,
-                0f,
-                360f,
-                useCenter = true,
-                size = Size(canvasWidth * 1.5f, canvasWidth * 1.5f),
-                // Here giving offset from topLeft to -xPos will move
-                // The arc to its left which is opposite of positive xPos
-                // canvasHeight would make it go below screen visibility
-                // To avoid we will use -300
-                // As it is a half arc we are using 600 / 2 value to subtract from canvas height
-                // Otherwise it will also show half space as blank
-                // Note: Had to change the logic but the above explanation would be enough for you to understand
-                topLeft = Offset(x = -xPos * 0.5f, y = canvasHeight - 400f)
-            )
-            drawCircle(
-                color = Color.Red,
-                radius = 200f,
-                center = Offset(x = xPos, y = canvasHeight - 373f)
-            )
+            val cutOutRad = 150f
+            // Define a path for the circular cutout
+            val circularCutoutPath = Path().apply {
+                addOval(
+                    Rect(
+                        xPos - cutOutRad,
+                        canvasHeight - 400f - cutOutRad,
+                        xPos + cutOutRad,
+                        canvasHeight - 400f + cutOutRad
+                    )
+                )
+            }
+            clipPath(circularCutoutPath, clipOp = ClipOp.Difference) {
+                drawArc(
+                    Color.Black,
+                    0f,
+                    360f,
+                    useCenter = true,
+                    size = Size(canvasWidth * 1.5f, canvasWidth * 1.5f),
+                    // Here giving offset from topLeft to -xPos will move
+                    // The arc to its left which is opposite of positive xPos
+                    // canvasHeight would make it go below screen visibility
+                    // To avoid we will use -300
+                    // As it is a half arc we are using 600 / 2 value to subtract from canvas height
+                    // Otherwise it will also show half space as blank
+                    // Note: Had to change the logic but the above explanation would be enough for you to understand
+                    topLeft = Offset(x = -xPos * 0.5f, y = canvasHeight - 400f)
+                )
+            }
         }
         AddFabIcon(bgColor)
     }
@@ -78,22 +90,18 @@ fun BottomArc(bgColor: Color) {
 @Preview
 @Composable
 fun AddFabIcon(bgColor: Color = Color.Blue) {
-    Box(modifier = Modifier
-        .offset(y = (-70).dp)
-        .background(bgColor, CircleShape)) {
-        FloatingActionButton(
-            onClick = {},
-            modifier = Modifier
-                .size(130.dp)
-                .background(bgColor, CircleShape)
-                .padding(20.dp),
-            shape = CircleShape,
-            containerColor = Color.White,
-            contentColor = Color.Black,
+    FloatingActionButton(
+        onClick = {},
+        modifier = Modifier
+            .offset(y = (-110).dp)
+            .size(80.dp)
+            .background(bgColor, CircleShape),
+        shape = CircleShape,
+        containerColor = Color.White,
+        contentColor = Color.Black,
 
-            ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
-        }
+        ) {
+        Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
     }
 }
 
