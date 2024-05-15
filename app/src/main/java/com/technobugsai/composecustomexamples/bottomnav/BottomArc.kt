@@ -5,10 +5,13 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -17,21 +20,28 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.ClipOp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.technobugsai.composecustomexamples.shapes.CustomCircleShape
 
 @Composable
 fun BottomArc(bgColor: Color) {
-    Box(
-        modifier = Modifier.fillMaxSize().background(bgColor),
+    Box (
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
         contentAlignment = Alignment.BottomCenter,
     ) {
         // Give canvas full width and height
-        Canvas(modifier = Modifier.matchParentSize()) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
             val canvasWidth = size.width
             val canvasHeight = size.height
             // Double the width to look like it goes beyond mobile width and looks
@@ -54,6 +64,11 @@ fun BottomArc(bgColor: Color) {
                 // Otherwise it will also show half space as blank
                 // Note: Had to change the logic but the above explanation would be enough for you to understand
                 topLeft = Offset(x = -xPos * 0.5f, y = canvasHeight - 400f)
+            )
+            drawCircle(
+                color = Color.Red,
+                radius = 200f,
+                center = Offset(x = xPos, y = canvasHeight - 373f)
             )
         }
         AddFabIcon(bgColor)

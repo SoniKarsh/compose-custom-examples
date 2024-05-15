@@ -1,4 +1,11 @@
 package com.technobugsai.composecustomexamples.utils
 
-class ComposeExamplesUtils {
+object ComposeExamplesUtils {
+    enum class AnimationState {
+        Expanded, Collapsed
+    }
+
+    fun AnimationState.isExpanded(): Boolean {
+        return this == AnimationState.Expanded
+    }
 }
