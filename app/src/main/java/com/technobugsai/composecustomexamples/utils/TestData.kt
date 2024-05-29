@@ -7,6 +7,7 @@ import com.technobugsai.composecustomexamples.utils.models.DataModel
 object TestData {
 
     const val CACHE_IMG_DIR_NAME = "image_cache"
+    const val ANIMATION_DURATION = 2000L
 
     fun getList(): ArrayList<DataModel> {
         return arrayListOf(
@@ -30,28 +31,28 @@ object TestData {
     fun getCartoonList(): ArrayList<CartoonDataModel> {
         return arrayListOf(
             CartoonDataModel(
-                "Orange", "#66FFA500", R.drawable.orange_transformed
+                "Orange", "#FFA500", R.drawable.orange_transformed
             ),
             CartoonDataModel(
-                "Blue", "#6600BFFF", R.drawable.blue_transformed
+                "Blue", "#00BFFF", R.drawable.blue_transformed
             ),
             CartoonDataModel(
-                "Green", "#6632CD32", R.drawable.green_transformed
+                "Green", "#32CD32", R.drawable.green_transformed
             ),
             CartoonDataModel(
-                "Light Blue", "#6687CEEB", R.drawable.light_blue_transformed
+                "Light Blue", "#87CEEB", R.drawable.light_blue_transformed
             ),
             CartoonDataModel(
-                "Purple", "#66C8A2C8", R.drawable.purple_transformed
+                "Purple", "#C8A2C8", R.drawable.purple_transformed
             ),
             CartoonDataModel(
-                "Light Blue One", "#6640E0D0", R.drawable.light_blue_one_transformed
+                "Light Blue One", "#40E0D0", R.drawable.light_blue_one_transformed
             ),
             CartoonDataModel(
-                "Red", "#66b50100", R.drawable.red_transformed
+                "Red", "#b50100", R.drawable.red_transformed
             ),
             CartoonDataModel(
-                "Purple One", "#66bcacd6", R.drawable.purple_one_transformed
+                "Purple One", "#bcacd6", R.drawable.purple_one_transformed
             )
         )
     }

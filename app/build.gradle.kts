@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(libs.coil)
+    implementation(libs.androidx.viewmodel)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

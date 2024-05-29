@@ -4,14 +4,10 @@ import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -20,23 +16,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.ClipOp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
-import androidx.compose.ui.graphics.drawscope.clipRect
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.technobugsai.composecustomexamples.shapes.CustomCircleShape
 
 @Composable
-fun BottomArc(bgColor: Color) {
+fun BottomArcNew() {
     Box (
         modifier = Modifier
             .fillMaxWidth()
@@ -83,19 +74,18 @@ fun BottomArc(bgColor: Color) {
                 )
             }
         }
-        AddFabIcon(bgColor)
+        AddFabIcon()
     }
 }
 
 @Preview
 @Composable
-fun AddFabIcon(bgColor: Color = Color.Blue) {
+fun AddFabIcon() {
     FloatingActionButton(
         onClick = {},
         modifier = Modifier
             .offset(y = (-110).dp)
-            .size(80.dp)
-            .background(bgColor, CircleShape),
+            .size(80.dp),
         shape = CircleShape,
         containerColor = Color.White,
         contentColor = Color.Black,
@@ -105,27 +95,8 @@ fun AddFabIcon(bgColor: Color = Color.Blue) {
     }
 }
 
-@Composable
-fun BottomCenterPoint() {
-    BoxWithConstraints {
-        // Convert constraints to DPs using LocalDensity
-        val screenWidth = with(LocalDensity.current) { maxWidth.toPx() }
-        val screenHeight = with(LocalDensity.current) { maxHeight.toPx() }
-
-        // Calculate the center bottom point
-        val centerX = screenWidth / 2
-        val centerY = screenHeight
-
-        // You can use these coordinates as needed
-        // For example, use them to position a composable or for some custom drawing
-        // Here, we're just printing them out
-        println("Center bottom X: $centerX")
-        println("Center bottom Y: $centerY")
-    }
-}
-
 @Preview (showBackground = true)
 @Composable
-fun BottomArcPreview() {
-    BottomArc(Color.Blue)
+fun BottomArcNewPreview() {
+    BottomArcNew()
 }
