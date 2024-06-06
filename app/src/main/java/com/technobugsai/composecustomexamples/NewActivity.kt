@@ -22,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -63,12 +64,29 @@ fun MainViewBackground(newViewModel: NewViewModel = viewModel()) {
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ScaleAnimationView(newViewModel: NewViewModel = viewModel()) {
+    val scope = rememberCoroutineScope()
+    val animatable = remember { Animatable(0f) }
+
+    // Function to reset and restart the animation
+    fun restartAnimation() {
+        scope.launch {
+            animatable.stop() // Stop any ongoing animation
+            animatable.snapTo(0f) // Reset the value to initial state
+            animatable.animateTo(
+                targetValue = 15f,
+                animationSpec = tween(durationMillis = 1000)
+            ) // Restart the animation
+        }
+    }  
+
     val animationProgress by newViewModel.isAnimationInProgress.collectAsState()
-    Log.e("Callssss", animationProgress.toString())
     val scale by animateFloatAsState(
         targetValue = if (animationProgress) 15f else 0f,
         animationSpec = tween(durationMillis = TestData.ANIMATION_DURATION.toInt())
     )
+    if (!animationProgress) {
+        restartAnimation()
+    }
     AnimatedVisibility(visible = animationProgress) {
         Log.e("Called121", (transition.currentState == transition.targetState).toString())
         Log.e("Called12is", transition.isRunning.toString())
