@@ -63,11 +63,11 @@ class NewViewModel: ViewModel() {
             // start next position animation
             _nextPage = current + 1
             inProgress = true
-            _isAnimationInProgress.value = true
             viewModelScope.launch(Dispatchers.IO) {
-                Log.e("Caklked", "Callss1")
+                _isAnimationInProgress.value = true
+                Log.e("called", "Callss1")
                 delay(TestData.ANIMATION_DURATION)
-                Log.e("Caklked", "Callss2")
+                Log.e("called", "Callss2")
                 inProgress = false
                 _isAnimationInProgress.value = false
             }
@@ -77,9 +77,9 @@ class NewViewModel: ViewModel() {
             inProgress = true
             _isAnimationInProgress.value = inProgress
             viewModelScope.launch(Dispatchers.IO) {
-                Log.e("Caklked", "Callss1")
+                Log.e("called", "Callss1")
                 delay(TestData.ANIMATION_DURATION)
-                Log.e("Caklked", "Callss2")
+                Log.e("called", "Callss2")
                 inProgress = false
                 _isAnimationInProgress.value = inProgress
             }
