@@ -10,6 +10,7 @@ data class DataModel(
 )
 
 data class CartoonDataModel(
+    val topTitle: String,
     val name: String,
     val color: String,
     val imgPath: Int

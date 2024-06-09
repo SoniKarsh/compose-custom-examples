@@ -26,13 +26,16 @@ class NewViewModel: ViewModel() {
     val uiStateAnimation: StateFlow<PageUiState> = _uiStateAnimation.asStateFlow()
 
     private val _isAnimationInProgress = MutableStateFlow(false)
+    private val _currentPos = MutableStateFlow(0)
     var inProgress = false
     val isAnimationInProgress = _isAnimationInProgress.asStateFlow()
+    val currentPos = _currentPos.asStateFlow()
 //    val isAnimationInProgress: StateFlow<Boolean> get() = _isAnimationInProgress
 
     init {
         val pageUiState = PageUiState(
-            bgColor = listOfCartoons[0].color
+            bgColor = listOfCartoons[0].color,
+            prevColor = listOfCartoons[0].color
         )
         _uiState.value = pageUiState
     }
@@ -43,9 +46,17 @@ class NewViewModel: ViewModel() {
         if (_currentPage != index) {
             Log.e("Called", index.toString())
             _currentPage = index
-            _uiState.value = PageUiState(
-                bgColor = listOfCartoons[index].color
-            )
+            if (index > 0) {
+                _uiState.value = PageUiState(
+                    bgColor = listOfCartoons[index].color,
+                    prevColor = listOfCartoons[index - 1].color,
+                )
+            } else {
+                _uiState.value = PageUiState(
+                    bgColor = listOfCartoons[index].color,
+                    prevColor = listOfCartoons[index].color,
+                )
+            }
         }
     }
 
@@ -65,22 +76,22 @@ class NewViewModel: ViewModel() {
             inProgress = true
             viewModelScope.launch(Dispatchers.IO) {
                 _isAnimationInProgress.value = true
-                Log.e("called", "Callss1")
+                _currentPos.value = current
                 delay(TestData.ANIMATION_DURATION)
-                Log.e("called", "Callss2")
                 inProgress = false
+                _currentPos.value = current + 1
                 _isAnimationInProgress.value = false
             }
         } else if (offset < 0 && !inProgress) {
             // start prev position animation
             _nextPage = current - 1
             inProgress = true
-            _isAnimationInProgress.value = inProgress
             viewModelScope.launch(Dispatchers.IO) {
-                Log.e("called", "Callss1")
+                _isAnimationInProgress.value = inProgress
+                _currentPos.value = current
                 delay(TestData.ANIMATION_DURATION)
-                Log.e("called", "Callss2")
                 inProgress = false
+                _currentPos.value = current - 1
                 _isAnimationInProgress.value = inProgress
             }
         } else {
